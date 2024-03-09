@@ -1,12 +1,29 @@
 .container {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 300px;
+	width: 500px;
+	justify-content: center;
+	flex-shrink: 0;
+	/* background-color: blue; */
 }
 
+.page-layout {
+	display: flex;
+	justify-content: space-between;
+	height: 100vh;
+	margin-left: 400px;
+	/* background-color: blueviolet; */
+}
 .workouts {
-  width: 50%;
+	width: 80%;
 }
 
 .community-post {
-  width: 50%;
+	width: 50%;
+}
+
+.posts {
+	min-width: 750px;
 }
