@@ -1,5 +1,13 @@
-const CommunityPage = () => {
-  return <div>CommunityPage</div>;
-};
+import Workouts2 from "../components/Workouts2"
+import CommunityPost from "../components/CommunityPost"
 
-export default CommunityPage;
+export default function CommunityPage() {
+  return (
+    <div>
+      <h1>Community Workouts</h1>
+      
+      <Workouts2 title="Chest" user="John Doe"/>
+      <CommunityPost/>
+    </div>
+  )
+}
