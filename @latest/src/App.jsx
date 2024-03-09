@@ -1,25 +1,24 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route  } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 import CreatePage from "./pages/CreatePage";
 import HomePage from "./pages/HomePage";
-import "./App.css";
+import CommunityPage from "./pages/CommunityPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<HomePage/>}/>
-            <Route path = "/HomePage" element={<HomePage/>}/>
-            <Route path = "/CreatePage" element={<CreatePage/>}/>
-            <Route path = "*" element={<HomePage/>}/>
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/CreatePage">Create</Link>
+        <Link to="/Community">Community</Link>
+        <button>Logout</button>
+      </nav>
+      <Routes>
+        <Route path="/CreatePage" element={<CreatePage />} />
+        <Route path="/Community" element={<CommunityPage />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

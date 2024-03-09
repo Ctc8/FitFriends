@@ -23,20 +23,20 @@ const CreatePage = () => {
     setWorkoutCount((prevCount) => prevCount + 1);
   };
 
-    const handleSubmit = () => {
-        if (Object.values(checkboxState).some((value) => value)) {
-          console.log("Name:", name);
-          console.log("Description:", description);
-          console.log("Workout Data:", workoutData);
-          console.log("Checkbox State:", checkboxState);
-        } else {
-          invalidSubmit();
-        }
-      };
-      
-      const invalidSubmit = () => {
-        console.log("Invalid");
-      };
+  const handleSubmit = () => {
+    if (Object.values(checkboxState).some((value) => value)) {
+      console.log("Name:", name);
+      console.log("Description:", description);
+      console.log("Workout Data:", workoutData);
+      console.log("Checkbox State:", checkboxState);
+    } else {
+      invalidSubmit();
+    }
+  };
+
+  const invalidSubmit = () => {
+    console.log("Invalid");
+  };
 
   const handleInputChange = (index, key, value) => {
     setWorkoutData((prevData) => {
@@ -86,29 +86,102 @@ const CreatePage = () => {
       <div style={{ marginBottom: "20px" }}></div>
       {[...Array(workoutCount)].map((_, index) => (
         <div key={index}>
-          <Workout onChange={(key, value) => handleInputChange(index, key, value)} />
+          <Workout
+            onChange={(key, value) => handleInputChange(index, key, value)}
+          />
         </div>
       ))}
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
-        <Button variant="outlined" sx={{ borderRadius: 2, marginTop: 2, width: "50px", height: "50px" }} onClick={addWorkout}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}
+      >
+        <Button
+          variant="outlined"
+          sx={{ borderRadius: 2, marginTop: 2, width: "50px", height: "50px" }}
+          onClick={addWorkout}
+        >
           Add
         </Button>
-        <Button variant="outlined" sx={{ borderRadius: 2, marginTop: 2, height: "50px", marginLeft: "10px" }} onClick={handleSubmit}>
+        <Button
+          variant="outlined"
+          sx={{
+            borderRadius: 2,
+            marginTop: 2,
+            height: "50px",
+            marginLeft: "10px",
+          }}
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
       </div>
-      <div style={{marginTop: 20}}>
-          <Box sx={{ bgcolor: "grey", p: 2, border: '2px solid blue', borderRadius: 2 }}>
-            <Grid container spacing={2}>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Monday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Monday} onChange={() => handleCheckboxChange("Monday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Tuesday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Tuesday} onChange={() => handleCheckboxChange("Tuesday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Wednesday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Wednesday} onChange={() => handleCheckboxChange("Wednesday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Thursday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Thursday} onChange={() => handleCheckboxChange("Thursday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Friday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Friday} onChange={() => handleCheckboxChange("Friday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Saturday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Saturday} onChange={() => handleCheckboxChange("Saturday")}></Checkbox></Grid>
-                <Grid item md={1.7}><p style={{ color: "white" }}>Sunday</p><Checkbox sx={{ color: "whitesmoke" }} checked={checkboxState.Sunday} onChange={() => handleCheckboxChange("Sunday")}></Checkbox></Grid>
+      <div style={{ marginTop: 20 }}>
+        <Box
+          sx={{
+            bgcolor: "grey",
+            p: 2,
+            border: "2px solid blue",
+            borderRadius: 2,
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Monday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Monday}
+                onChange={() => handleCheckboxChange("Monday")}
+              ></Checkbox>
             </Grid>
-          </Box>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Tuesday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Tuesday}
+                onChange={() => handleCheckboxChange("Tuesday")}
+              ></Checkbox>
+            </Grid>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Wednesday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Wednesday}
+                onChange={() => handleCheckboxChange("Wednesday")}
+              ></Checkbox>
+            </Grid>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Thursday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Thursday}
+                onChange={() => handleCheckboxChange("Thursday")}
+              ></Checkbox>
+            </Grid>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Friday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Friday}
+                onChange={() => handleCheckboxChange("Friday")}
+              ></Checkbox>
+            </Grid>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Saturday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Saturday}
+                onChange={() => handleCheckboxChange("Saturday")}
+              ></Checkbox>
+            </Grid>
+            <Grid item md={1.7}>
+              <p style={{ color: "white" }}>Sunday</p>
+              <Checkbox
+                sx={{ color: "whitesmoke" }}
+                checked={checkboxState.Sunday}
+                onChange={() => handleCheckboxChange("Sunday")}
+              ></Checkbox>
+            </Grid>
+          </Grid>
+        </Box>
       </div>
     </>
   );
