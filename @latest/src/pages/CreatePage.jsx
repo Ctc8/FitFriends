@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Stack, TextField, Button, Box, Grid, Checkbox } from "@mui/material";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase-config.js";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
@@ -24,11 +26,24 @@ const CreatePage = () => {
     setWorkoutCount((prevCount) => prevCount + 1);
   };
 
-  const handleSubmit = () => {
+  const postCollectionRef = collection(db, "WorkoutPlan");
+
+  const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
-      console.log("Name:", name);
-      console.log("Description:", description);
-      console.log("Workout Data:", workoutData);
+      // workout plan json
+      const workoutPlan = {
+        name: name,
+        description: description,
+        workoutData: [...workoutData],
+        days: checkboxState,
+      };
+
+      await addDoc(postCollectionRef, workoutPlan);
+
+      console.log(workoutPlan);
+      // console.log("Name:", name);
+      // console.log("Description:", description);
+      // console.log("Workout Data:", workoutData);
       console.log("Checkbox State:", checkboxState);
     } else {
       invalidSubmit();
