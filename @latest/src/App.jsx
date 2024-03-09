@@ -12,9 +12,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import CreateIcon from "@mui/icons-material/Create";
 import PeopleIcon from "@mui/icons-material/People";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
 import Divider from "@mui/material/Divider";
 
 import "./App.css";
+import YouPage from "./pages/youPage";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -67,6 +69,10 @@ function App() {
                 <PeopleIcon />
                 <div>Community</div>
               </Link>
+              <Link to="/youPage" className="navbar-clickable">
+                <PersonIcon />
+                <div>You</div>
+              </Link>
             </nav>
           </div>
           <div className="navbar-bottom">
@@ -83,6 +89,7 @@ function App() {
           <Route path="/CreatePage" element={<CreatePage />} />
           <Route path="/Community" element={<CommunityPage />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/youPage" element={<YouPage />} />
         </Routes>
       </div>
       <Routes>
