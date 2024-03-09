@@ -78,7 +78,7 @@ function App() {
           </div>
         </div>
       )}
-      <div className="test">
+      <div className="pages">
         <Routes>
           <Route path="/CreatePage" element={<CreatePage />} />
           <Route path="/Community" element={<CommunityPage />} />
