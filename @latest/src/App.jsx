@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
+import { query, collection, where, getDocs } from "firebase/firestore";
 
 import CreatePage from "./pages/CreatePage";
 import HomePage from "./pages/HomePage";
