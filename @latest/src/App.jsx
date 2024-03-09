@@ -82,10 +82,12 @@ function App() {
         <Routes>
           <Route path="/CreatePage" element={<CreatePage />} />
           <Route path="/Community" element={<CommunityPage />} />
-          <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
           <Route path="/" element={<HomePage />} />
         </Routes>
       </div>
+      <Routes>
+        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+      </Routes>
     </BrowserRouter>
   );
 }
