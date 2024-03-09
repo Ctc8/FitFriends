@@ -5,10 +5,6 @@ import { db } from "../../firebase-config.js";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
-<<<<<<< HEAD
-import { Stack, TextField, Button, Box, Grid, Checkbox, Typography } from "@mui/material";
-=======
->>>>>>> 4861f34e340acd6717077c6fd80ef30f6d53a8b6
 import Workout from "../components/Workouts.jsx";
 
 const CreatePage = () => {
