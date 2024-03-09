@@ -1,0 +1,30 @@
+/* CreatePage.module.css */
+
+.container {
+  display: flex;
+  align-items: center;
+}
+.image {
+  max-width: 25%;
+  max-height: 25%;
+  margin-left: 20px; /* Adjust as needed */
+}
+
+.text {
+  margin-left: 10px;
+}
+
+.form {
+  display: flex;
+}
+
+.input {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input:last-child {
+  margin-right: 0;
+}
