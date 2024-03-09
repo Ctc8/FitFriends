@@ -1,0 +1,49 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 100px;
+}
+
+.auth-prompt-container{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.auth-signup-text{
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.auth-welcome-container {
+    margin-top: 60px;
+    font-size: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-login-button{
+    margin-top: 50px;
+
+    font-size: 20px;
+    width: 295px;
+    height: 50px;
+
+    border: none;
+    border-radius: 10px;
+
+    color: white;
+    background-color: #013366;
+}
+
+.auth-login-button:hover{
+    cursor: pointer;
+    background-color: #002244;
+}
+
+.auth-logo {
+    margin-top: 50px;
+}
