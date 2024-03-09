@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workouts {
+  width: 50%;
+}
+
+.community-post {
+  width: 50%;
+}

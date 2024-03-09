@@ -12,6 +12,7 @@ function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [currentUser, setCurrentUser] = useState({});
 
+
   useEffect(() => {
     // Update current user data
     onAuthStateChanged(auth, (user) => {
