@@ -78,12 +78,14 @@ function App() {
           </div>
         </div>
       )}
-      <Routes>
-        <Route path="/CreatePage" element={<CreatePage />} />
-        <Route path="/Community" element={<CommunityPage />} />
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-        <Route path="/" element={<HomePage />} />
-      </Routes>
+      <div className="test">
+        <Routes>
+          <Route path="/CreatePage" element={<CreatePage />} />
+          <Route path="/Community" element={<CommunityPage />} />
+          <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
