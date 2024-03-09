@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
-import { Stack, TextField, Button, Box, Grid, Checkbox } from "@mui/material";
+import { Stack, TextField, Button, Box, Grid, Checkbox, Typography } from "@mui/material";
 import Workout from "../components/Workouts.jsx";
 
 const CreatePage = () => {
@@ -55,13 +55,20 @@ const CreatePage = () => {
 
   return (
     <>
-      <div className={styles.container}>
-        <img src={logo} alt="workout plan" className={styles.image} />
-        <div className={styles.text}>
-          <h1>Create a Workout Plan</h1>
-          <p>Some description or additional content can go here...</p>
-        </div>
-      </div>
+    <Box sx={{ borderRadius: 2, paddingLeft:35, paddingRight:25}}>
+        <Box sx={{display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            height: "100%",}}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <img src={logo} alt="workout plan" className={styles.image} />
+                <div>
+                    <h1>Create a Workout Plan</h1>
+                    <p>Some description or additional content can go here...</p>
+                </div>
+            </div>
+        </Box>
       <div className={styles.TextField}>
         <Stack spacing={4}>
           <Stack direction={"row"} spacing={4}>
@@ -125,15 +132,15 @@ const CreatePage = () => {
         >
           <Grid container spacing={2}>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Monday</p>
+                <p className={styles.customParagraph}>Monday</p>
               <Checkbox
-                sx={{ color: "whitesmoke" }}
+                sx={{ color: "whitesmoke"}}
                 checked={checkboxState.Monday}
                 onChange={() => handleCheckboxChange("Monday")}
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Tuesday</p>
+                <p className={styles.customParagraph}>Tuesday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Tuesday}
@@ -141,7 +148,7 @@ const CreatePage = () => {
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Wednesday</p>
+              <p className={styles.customParagraph}>Wednesday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Wednesday}
@@ -149,7 +156,7 @@ const CreatePage = () => {
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Thursday</p>
+            <p className={styles.customParagraph}>Thursday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Thursday}
@@ -157,7 +164,7 @@ const CreatePage = () => {
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Friday</p>
+            <p className={styles.customParagraph}>Friday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Friday}
@@ -165,7 +172,7 @@ const CreatePage = () => {
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Saturday</p>
+            <p className={styles.customParagraph}>Saturday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Saturday}
@@ -173,7 +180,7 @@ const CreatePage = () => {
               ></Checkbox>
             </Grid>
             <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Sunday</p>
+            <p className={styles.customParagraph}>Sunday</p>
               <Checkbox
                 sx={{ color: "whitesmoke" }}
                 checked={checkboxState.Sunday}
@@ -183,6 +190,7 @@ const CreatePage = () => {
           </Grid>
         </Box>
       </div>
+      </Box>
     </>
   );
 };
