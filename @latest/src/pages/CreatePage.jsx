@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, TextField, Button, Box, Grid, Checkbox } from "@mui/material";
+import { Stack, TextField, Button, Box, Grid, Checkbox, FormControlLabel} from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config.js";
 
@@ -71,7 +71,7 @@ const CreatePage = () => {
 
   return (
     <>
-    <Box sx={{ borderRadius: 2, paddingLeft:35, paddingRight:25}}>
+    <Box sx={{ borderRadius: 2, paddingLeft:55, paddingRight:15}}>
         <Box sx={{display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -144,64 +144,81 @@ const CreatePage = () => {
             p: 2,
             border: "2px solid blue",
             borderRadius: 2,
+            maxHeight: "55px",
+            color: "white",
+            fontFamily: "Helvetica, Arial, sans-serif",
           }}
         >
           <Grid container spacing={2}>
             <Grid item md={1.7}>
-                <p className={styles.customParagraph}>Monday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke"}}
-                checked={checkboxState.Monday}
-                onChange={() => handleCheckboxChange("Monday")}
-              ></Checkbox>
+              <FormControlLabel
+                label = 'Monday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Monday}
+                  onChange={() => handleCheckboxChange("Monday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-                <p className={styles.customParagraph}>Tuesday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Tuesday}
-                onChange={() => handleCheckboxChange("Tuesday")}
-              ></Checkbox>
+                <FormControlLabel
+                label = 'Tuesday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Tuesday}
+                  onChange={() => handleCheckboxChange("Tuesday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-              <p className={styles.customParagraph}>Wednesday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Wednesday}
-                onChange={() => handleCheckboxChange("Wednesday")}
-              ></Checkbox>
+            <FormControlLabel
+                label = 'Wednesday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Wednesday}
+                  onChange={() => handleCheckboxChange("Wednesday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-            <p className={styles.customParagraph}>Thursday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Thursday}
-                onChange={() => handleCheckboxChange("Thursday")}
-              ></Checkbox>
+            <FormControlLabel
+                label = 'Thursday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Thursday}
+                  onChange={() => handleCheckboxChange("Thursday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-            <p className={styles.customParagraph}>Friday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Friday}
-                onChange={() => handleCheckboxChange("Friday")}
-              ></Checkbox>
+            <FormControlLabel
+                label = 'Friday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Friday}
+                  onChange={() => handleCheckboxChange("Friday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-            <p className={styles.customParagraph}>Saturday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Saturday}
-                onChange={() => handleCheckboxChange("Saturday")}
-              ></Checkbox>
+            <FormControlLabel
+                label = 'Friday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Saturday}
+                  onChange={() => handleCheckboxChange("Saturday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
             <Grid item md={1.7}>
-            <p className={styles.customParagraph}>Sunday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Sunday}
-                onChange={() => handleCheckboxChange("Sunday")}
-              ></Checkbox>
+            <FormControlLabel
+                label = 'Sunday'
+                control={<Checkbox 
+                  sx={{ color: "whitesmoke" }}
+                  checked={checkboxState.Sunday}
+                  onChange={() => handleCheckboxChange("Sunday")}/>}
+                labelPlacement="top"
+              />
             </Grid>
           </Grid>
         </Box>
