@@ -1,12 +1,16 @@
 import React from "react"
 import { Grid, TextField, Box, Button } from "@mui/material"
-import {useEffect} from "react"
+import { useEffect, useState } from "react"
 
 import DeleteIcon from "@mui/icons-material/Delete"
 
-const Workout = ({ onChange, onRemove }) => {
+const Workout = ({ workoutData, index, onChange, onRemove }) => {
+	const [workout, setWorkout] = useState(workoutData)
+
 	const handleChange = key => event => {
-		onChange(key, event.target.value)
+		const value = event.target.value
+		setWorkout({ ...workout, [key]: value })
+		onChange(index, key, value)
 	}
 
 	return (
