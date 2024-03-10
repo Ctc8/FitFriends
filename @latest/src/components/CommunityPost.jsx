@@ -1,4 +1,8 @@
 import React, { useState } from "react"
+import "./CommunityPost.css"
+
+import Button from "@mui/material/Button"
+import TextField from "@mui/material/TextField"
 
 export default function CommunityPost({ selectedData }) {
 	const { title, user } = selectedData
@@ -21,7 +25,6 @@ export default function CommunityPost({ selectedData }) {
 			<p>{user}</p>
 			<h2>Description</h2>
 			<p>
-
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil totam
 				fuga dolores eum laborum, non itaque provident minima tenetur esse rem
 				ea. Ipsum voluptatibus quos fugit cumque suscipit unde reprehenderit.
@@ -33,14 +36,20 @@ export default function CommunityPost({ selectedData }) {
 			))}
 
 			<form onSubmit={handleCommentSubmit}>
-				<input
+				<TextField
+					className="comment"
 					type="text"
 					value={newComment}
 					onChange={handleCommentChange}
 					placeholder="What are your thoughts?"
+					variant="outlined"
+					multiline
+					rows={4}
 				/>
-				<button type="submit">Submit</button>
+				<Button type="submit" variant="contained" className="submit-button">Submit</Button>
 			</form>
+
+			<div className="comments-section"></div>
 		</div>
 	)
 }
