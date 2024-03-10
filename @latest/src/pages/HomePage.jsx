@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-import React from "react";
-import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
-=======
 import React, { useEffect } from "react";
 import styles from "./HomePage.css";
 import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
->>>>>>> 072d8b8d5e0264f5e96fe6fc27e330d66519b0b2
+
 import { useState } from "react";
 import Exercise from "../components/Exercise";
 import { useNavigate } from "react-router-dom";
