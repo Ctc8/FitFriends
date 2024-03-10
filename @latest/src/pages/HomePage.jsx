@@ -96,8 +96,9 @@ function getDate() {
 const HomePage = ({ isAuth }) => {
   const [checked, setChecked] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
-  const [workoutData, setWorkoutData] = useState([]);
-  const [dailyWorkoutDate, setDailyWorkoutData] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [dailyWorkoutData, setDailyWorkoutData] = useState([]);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -112,7 +113,10 @@ const HomePage = ({ isAuth }) => {
     }
 
     onAuthStateChanged(auth, async (user) => {
-      const day = new Date().getDay();
+      const dataForToday = [];
+      const currentDayIndex = new Date().getDay();
+      console.log(currentDayIndex);
+      const currentDay = dayAsString(currentDayIndex + 1);
 
       setCurrentUser(user);
 
@@ -124,32 +128,33 @@ const HomePage = ({ isAuth }) => {
       const data = await getDocs(q);
       const fullData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       console.log(fullData);
+
+      fullData.map((data) => {
+        const temp = data.days;
+        for (const property in temp) {
+          if (property == currentDay) {
+            if (temp[property] == true) {
+              console.log("We got: " + data.name);
+              data.workoutData.map((workout) => {
+                console.log(workout.bodyPart);
+                dataForToday.push(workout);
+              });
+              setName(data.name);
+              setDescription(data.description);
+            }
+          }
+        }
+      });
+
+      console.log(dataForToday);
+
+      setDailyWorkoutData(dataForToday);
     });
   }, []);
 
   const [dayMatch, setDayMatch] = useState(true);
 
-  const workoutPlan = [
-    {
-      bodyPart: "Quads",
-      exercise: "Squats",
-      sets: 10,
-      reps: 4,
-      weight: 70,
-    },
-    {
-      bodyPart: "Biceps",
-      exercise: "Curls",
-      sets: 3,
-      reps: 4,
-      weight: 10,
-    },
-  ];
-
   const streak = 4;
-  const workoutName = "Leg Day";
-  const workoutDesc =
-    "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
 
   return (
     <div className="homepage">
@@ -169,8 +174,8 @@ const HomePage = ({ isAuth }) => {
           <div>
             <div className="homepage-workout-container">
               <div className="homepage-workout-header-container">
-                <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
-                <p1>{workoutDesc}</p1> {/* retrieve workout description */}
+                <div className="Title">{name}</div>
+                <p1>{description}</p1> {/* retrieve workout description */}
               </div>
               <div className="homepage-workout-complete-container">
                 <h4>Workout Complete</h4>
@@ -196,7 +201,7 @@ const HomePage = ({ isAuth }) => {
               {/* retrieve the day's exercise list */}
               <div className="homepage-exercise-list-container">
                 {" "}
-                {workoutPlan.map((workout, index) => (
+                {dailyWorkoutData.map((workout, index) => (
                   <Exercise
                     bodyPart={workout.bodyPart}
                     exercise={workout.exercise}
