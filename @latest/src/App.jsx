@@ -17,6 +17,7 @@ import Divider from "@mui/material/Divider";
 
 import "./App.css";
 import YouPage from "./pages/youPage";
+import EditPage from "./pages/EditPage";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
@@ -72,6 +73,10 @@ function App() {
                 <PersonIcon />
                 <div>You</div>
               </Link>
+              <Link to="/Edit" className="navbar-clickable">
+                <CreateIcon />
+                <div>Edit</div>
+              </Link>
             </nav>
           </div>
           <div className="navbar-bottom">
@@ -89,6 +94,7 @@ function App() {
           <Route path="/Community" element={<CommunityPage />} />
           <Route path="/" element={<HomePage isAuth={isAuth} />} />
           <Route path="/youPage" element={<YouPage isAuth={isAuth} />} />
+          <Route path="/Edit" element={<EditPage />} />
         </Routes>
       </div>
       <Routes>
