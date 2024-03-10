@@ -1,6 +1,4 @@
-import "firebase/database"
-
-import { query } from "firebase/firestore"
+import "firebase/firestore"
 
 import { useState, useEffect } from "react"
 
@@ -12,16 +10,18 @@ import Typography from "@mui/material/Typography"
 import { Button, CardActionArea, CardActions } from "@mui/material"
 
 import "./Workouts2.css"
+import { db } from "../../firebase-config"
+import { collection, getDocs } from "firebase/firestore"
 
-export default function Workouts2({ title, user, onCardClick }) {
-	const [data, setData] = useState(null)
+export default function Workouts2({ name, user, description, onCardClick }) {
+	const [data, setData] = useState([])
 
 	return (
 		<Card
 			className="card"
 			sx={{ maxWidth: 500, bgcolor: "#f5f5f5" }}
 			elevation={0}
-			onClick={() => onCardClick({ title, user })}
+			onClick={() => onCardClick({ name, user })}
 		>
 			<CardActionArea>
 				<CardContent className="card-content">
@@ -31,11 +31,13 @@ export default function Workouts2({ title, user, onCardClick }) {
 						component="div"
 						sx={{ fontWeight: "bold" }}
 					>
-						{title}
+						{name}
 					</Typography>
+
 					<Typography gutterBottom variant="h7" component="div">
 						{user}
 					</Typography>
+
 					{data &&
 						data.map(item => (
 							<Typography
@@ -44,9 +46,10 @@ export default function Workouts2({ title, user, onCardClick }) {
 								variant="h5"
 								component="div"
 							>
-								{item.title}
+								{item.name}
 							</Typography>
 						))}
+
 					<FavoriteIcon className="favorite-icon" />
 				</CardContent>
 			</CardActionArea>

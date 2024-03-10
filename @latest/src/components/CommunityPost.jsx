@@ -5,7 +5,7 @@ import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 
 export default function CommunityPost({ selectedData }) {
-	const { title, user } = selectedData
+	const { title, user, description } = selectedData
 	const [comments, setComments] = useState([])
 	const [newComment, setNewComment] = useState("")
 
@@ -24,11 +24,7 @@ export default function CommunityPost({ selectedData }) {
 			<h2>{title}</h2>
 			<p>{user}</p>
 			<h2>Description</h2>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil totam
-				fuga dolores eum laborum, non itaque provident minima tenetur esse rem
-				ea. Ipsum voluptatibus quos fugit cumque suscipit unde reprehenderit.
-			</p>
+			<p>{description}</p>
 
 			<h3>Comments</h3>
 			{comments.map((comment, index) => (
@@ -46,7 +42,9 @@ export default function CommunityPost({ selectedData }) {
 					multiline
 					rows={4}
 				/>
-				<Button type="submit" variant="contained" className="submit-button">Submit</Button>
+				<Button type="submit" variant="contained" className="submit-button">
+					Submit
+				</Button>
 			</form>
 
 			<div className="comments-section"></div>

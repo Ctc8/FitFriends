@@ -1,14 +1,36 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Workouts2 from "../components/Workouts2"
 import CommunityPost from "../components/CommunityPost"
 import "./CommunityPage.css"
 
+import { db } from "../../firebase-config"
+import { collection, query, getDocs, orderBy } from "firebase/firestore"
+
 export default function CommunityPage() {
+	const [postList, setPostList] = useState([])
+
+	const q = query(collection(db, "WorkoutPlan"), orderBy("timestamp", "desc"))
+
 	const [selectedData, setSelectedData] = useState(null)
 
 	const handleCardClick = data => {
 		setSelectedData(data)
 	}
+
+	const fetchPost = async () => {
+		const data = await getDocs(q)
+		setPostList(data.docs.map(doc => ({ ...doc.data() })))
+	}
+
+	useEffect(() => {
+		fetchPost()
+	}, [])
+
+	useEffect(() => {
+		postList.forEach(post => {
+			console.log(post.user)
+		})
+	}, [postList])
 
 	return (
 		<>
@@ -16,21 +38,15 @@ export default function CommunityPage() {
 				<div className="container">
 					<div className="workouts">
 						<h1>Community Workouts</h1>
-						<Workouts2
-							title="Chest"
-							user="John Doe"
-							onCardClick={handleCardClick}
-						/>
-						<Workouts2
-							title="Back"
-							user="Bob Ross"
-							onCardClick={handleCardClick}
-						/>
-						<Workouts2
-							title="Legs"
-							user="LeBron James"
-							onCardClick={handleCardClick}
-						/>
+						{postList.map((post, index) => (
+							<Workouts2
+								key={index}
+								name={post.name}
+								user={post.user}
+								description={post.description}
+								onCardClick={() => handleCardClick(post)}
+							/>
+						))}
 					</div>
 				</div>
 
