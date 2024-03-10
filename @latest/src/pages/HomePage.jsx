@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./HomePage.css";
 import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 import { useState } from "react";
 import Exercise from "../components/Exercise";

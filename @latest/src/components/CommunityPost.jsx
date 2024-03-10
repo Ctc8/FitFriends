@@ -32,6 +32,8 @@ export default function CommunityPost({ selectedData, postComments, id }) {
         comment: newComment,
         postID: selectedData.uid,
         timestamp: serverTimestamp(),
+        user: auth.currentUser.displayName,
+        userPhoto: auth.currentUser.photoURL,
       });
 
       setNewComment("");
@@ -48,8 +50,8 @@ export default function CommunityPost({ selectedData, postComments, id }) {
         comment: newComment,
         postID: selectedData.uid,
         timestamp: serverTimestamp(),
-        username: auth.currentUser.displayName,
-        photoURL: auth.currentUser.photoURL,
+        user: auth.currentUser.displayName,
+        userPhoto: auth.currentUser.photoURL,
       });
 
       setNewComment("");
@@ -66,6 +68,7 @@ export default function CommunityPost({ selectedData, postComments, id }) {
 
     const data = await getDocs(commentsQuery);
     setComments(data.docs.map((doc) => ({ ...doc.data() })));
+    console.log(data.docs()[0].userPhoto);
   };
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export default function CommunityPost({ selectedData, postComments, id }) {
             <div className="comment-userInfo-message-container">
               <div className="comment-username-photo-container">
                 <img
-                  src={comment.photo}
+                  src={comment.userPhoto}
                   alt="userPhoto"
                   className="comment-user-photo"
                 />
