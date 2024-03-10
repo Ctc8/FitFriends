@@ -38,9 +38,8 @@ const CreatePage = () => {
 
   const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
+      // workout plan json
       const date = new Date();
-
-      console.log(workoutData);
 
       const workoutPlan = {
         name: name,
@@ -62,6 +61,8 @@ const CreatePage = () => {
       // console.log("Description:", description);
       // console.log("Workout Data:", workoutData);
       console.log("Checkbox State:", checkboxState);
+
+      window.location.pathname = "/";
     } else {
       invalidSubmit();
     }
