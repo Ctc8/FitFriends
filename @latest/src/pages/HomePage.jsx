@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
+import { getDocs, query, collection, where } from "firebase/firestore";
+import { auth, db } from "../../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { useState } from "react";
 import Exercise from "../components/Exercise";
@@ -92,6 +95,11 @@ function getDate() {
 
 const HomePage = ({ isAuth }) => {
   const [checked, setChecked] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [dailyWorkoutData, setDailyWorkoutData] = useState([]);
+
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -103,30 +111,50 @@ const HomePage = ({ isAuth }) => {
       console.log(isAuth);
       navigate("/login");
     }
-  });
 
-  const workoutPlan = [
-    {
-      bodyPart: "Quads",
-      exercise: "Squats",
-      sets: 10,
-      reps: 4,
-      weight: 70,
-    },
-    {
-      bodyPart: "Biceps",
-      exercise: "Curls",
-      sets: 3,
-      reps: 4,
-      weight: 10,
-    },
-  ];
+    onAuthStateChanged(auth, async (user) => {
+      const dataForToday = [];
+      const currentDayIndex = new Date().getDay();
+      console.log(currentDayIndex);
+      const currentDay = dayAsString(currentDayIndex + 1);
+
+      setCurrentUser(user);
+
+      const q = query(
+        collection(db, "WorkoutPlan"),
+        where("userID", "==", user.uid)
+      );
+
+      const data = await getDocs(q);
+      const fullData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(fullData);
+
+      fullData.map((data) => {
+        const temp = data.days;
+        for (const property in temp) {
+          if (property == currentDay) {
+            if (temp[property] == true) {
+              console.log("We got: " + data.name);
+              data.workoutData.map((workout) => {
+                console.log(workout.bodyPart);
+                dataForToday.push(workout);
+              });
+              setName(data.name);
+              setDescription(data.description);
+            }
+          }
+        }
+      });
+
+      console.log(dataForToday);
+
+      setDailyWorkoutData(dataForToday);
+    });
+  }, []);
+
+  const [dayMatch, setDayMatch] = useState(true);
 
   const streak = 4;
-  const user = "User";
-  const workoutName = "Leg Day";
-  const workoutDesc =
-    "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
 
   return (
     <div className="homepage">
@@ -135,60 +163,65 @@ const HomePage = ({ isAuth }) => {
           <div className="homepage-header">
             <img src={Logo} width="200" height="200"></img>
             <div className="homepage-title">
-              <h1>Welcome, {user}</h1> {/* username from auth data */}
+              <h1>Welcome, {currentUser.displayName}</h1>{" "}
+              {/* username from auth data */}
               <h2>{getDate()}</h2>
             </div>
           </div>
-          <div className="homepage-streak-container">
-            <h3>{streak}</h3> {/* streak number from data base */}
-            <img src={Streak} width="200" height="200"></img>
-          </div>
         </div>
 
-        <div className="homepage-workout-container">
-          <div className="homepage-workout-header-container">
-            <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
-            <p1>{workoutDesc}</p1> {/* retrieve workout description */}
-          </div>
-          <div className="homepage-workout-complete-container">
-            <h4>Workout Complete</h4>
-            <div className="homepage-checkbox">
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checked}
-                      onChange={handleChange}
-                      style={{ transform: "scale(2)" }}
-                    ></Checkbox>
-                  }
-                />
-              </FormGroup>
+        {dailyWorkoutData.length > 0 ? (
+          <div>
+            <div className="homepage-workout-container">
+              <div className="homepage-workout-header-container">
+                <div className="Title">{name}</div>
+                <p1>{description}</p1> {/* retrieve workout description */}
+              </div>
+              <div className="homepage-workout-complete-container">
+                <h4>Workout Complete</h4>
+                <div className="homepage-checkbox">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={checked}
+                          onChange={handleChange}
+                          style={{ transform: "scale(2)" }}
+                        >
+                          {checked && console.log("workout complete")}
+                        </Checkbox>
+                      }
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+            </div>
+            <div className="homepage-exercises-container">
+              <h2>Today's Exercises</h2>
+              {/* retrieve the day's exercise list */}
+              <div className="homepage-exercise-list-container">
+                {" "}
+                {dailyWorkoutData.map((workout, index) => (
+                  <Exercise
+                    bodyPart={workout.bodyPart}
+                    exercise={workout.exercise}
+                    reps={workout.reps}
+                    sets={workout.sets}
+                    weight={workout.weight}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="homepage-exercises-container">
-          <h2>Today's Exercises</h2>
-          {/* retrieve the day's exercise list */}
-          <div className="homepage-exercise-list-container">
-            {" "}
-            {workoutPlan.map((workout, index) => (
-              <Exercise
-                bodyPart={workout.bodyPart}
-                exercise={workout.exercise}
-                reps={workout.reps}
-                sets={workout.sets}
-                weight={workout.weight}
-              />
-            ))}
+        ) : (
+          <div>
+            <div className="homepage-rest-container">
+              <h5>Enjoy your rest day!</h5>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
-    // <div className="homepage">
-
-    // </div>
   );
 };
 
