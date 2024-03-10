@@ -8,8 +8,8 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase-config.js";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../../firebase-config.js";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
@@ -30,29 +30,43 @@ const CreatePage = () => {
     Sunday: false,
   });
 
+  const [workouts, setWorkouts] = useState([]);
+
   const addWorkout = () => {
     setWorkoutCount((prevCount) => prevCount + 1);
+  };
+
+  //Remove
+  const handleRemove = (index) => {
+    setWorkouts((prevWorkouts) => {
+      if (prevWorkouts.length > 1) {
+        return prevWorkouts.filter((workout, i) => i !== index);
+      }
+      return prevWorkouts;
+    });
+    setWorkoutCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
   };
 
   const postCollectionRef = collection(db, "WorkoutPlan");
 
   const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
-      // workout plan json
+      const date = new Date();
+
       const workoutPlan = {
         name: name,
         description: description,
         workoutData: [...workoutData],
         days: checkboxState,
+        user: auth.currentUser.displayName,
+        dayCreated: date.getDay(),
+        monthCreated: date.getMonth() + 1,
+        yearCreated: date.getFullYear(),
+        timestamp: serverTimestamp(),
+        userID: auth.currentUser.uid,
       };
 
       await addDoc(postCollectionRef, workoutPlan);
-
-      console.log(workoutPlan);
-      // console.log("Name:", name);
-      // console.log("Description:", description);
-      // console.log("Workout Data:", workoutData);
-      console.log("Checkbox State:", checkboxState);
     } else {
       invalidSubmit();
     }
@@ -122,7 +136,8 @@ const CreatePage = () => {
         {[...Array(workoutCount)].map((_, index) => (
           <div key={index}>
             <Workout
-              onChange={(key, value) => handleInputChange(index, key, value)}
+              onChange={handleInputChange}
+              onRemove={() => handleRemove(index)}
             />
           </div>
         ))}
