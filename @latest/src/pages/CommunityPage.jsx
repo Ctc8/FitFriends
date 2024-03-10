@@ -4,18 +4,29 @@ import CommunityPost from "../components/CommunityPost";
 import "./CommunityPage.css";
 
 import { db } from "../../firebase-config";
-import { collection, query, getDocs, orderBy } from "firebase/firestore";
+import { collection, query, getDocs, orderBy, where } from "firebase/firestore";
 
 export default function CommunityPage() {
   const [postList, setPostList] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const q = query(collection(db, "WorkoutPlan"), orderBy("timestamp", "desc"));
 
   const [selectedData, setSelectedData] = useState(null);
 
-  const handleCardClick = (data) => {
-    console.log(data);
+  const handleCardClick = async (data) => {
+    console.log(data.uid);
     setSelectedData(data);
+
+    const commentsQuery = query(
+      collection(db, "Comments"),
+      orderBy("timestamp", "desc"),
+      where("postID", "==", data.uid)
+    );
+
+    const comment = await getDocs(commentsQuery);
+    setComments(comment.docs.map((doc) => ({ ...doc.data() })));
+    console.log(comments);
   };
 
   const fetchPost = async () => {
@@ -50,11 +61,14 @@ export default function CommunityPage() {
             ))}
           </div>
         </div>
-
         <div className="posts">
           {selectedData && (
             <div className="community-post">
-              <CommunityPost selectedData={selectedData} />
+              <CommunityPost
+                selectedData={selectedData}
+                postComments={comments}
+                id={selectedData.uid}
+              />
             </div>
           )}
         </div>

@@ -1,11 +1,21 @@
-import React, { useState } from "react";
-import "./CommunityPost.css";
+import React, { useEffect, useState } from "react";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import "./CommunityPost.css";
+import { auth, db } from "../../firebase-config";
+import Comment from "./Comment";
 
-export default function CommunityPost({ selectedData }) {
-  const { title, user, description } = selectedData;
+export default function CommunityPost({ selectedData, postComments, id }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
@@ -13,41 +23,91 @@ export default function CommunityPost({ selectedData }) {
     setNewComment(event.target.value);
   };
 
-  const handleCommentSubmit = (event) => {
-    event.preventDefault();
-    setComments([...comments, newComment]);
-    setNewComment("");
+  const handleCommentSubmit = async (event) => {
+    if (event.key == "Enter" && newComment != "") {
+      // get the comments with the same id
+      const commentsRef = collection(db, "Comments");
+
+      await addDoc(commentsRef, {
+        comment: newComment,
+        postID: selectedData.uid,
+        timestamp: serverTimestamp(),
+      });
+
+      setNewComment("");
+      getComments();
+    }
   };
 
+  const handleClick = async () => {
+    // get the comments with the same id
+    if (newComment != "") {
+      const commentsRef = collection(db, "Comments");
+
+      await addDoc(commentsRef, {
+        comment: newComment,
+        postID: selectedData.uid,
+        timestamp: serverTimestamp(),
+        user: auth.currentUser.displayName,
+      });
+
+      setNewComment("");
+      getComments();
+    }
+  };
+
+  const getComments = async () => {
+    const commentsQuery = query(
+      collection(db, "Comments"),
+      orderBy("timestamp", "desc"),
+      where("postID", "==", selectedData.uid)
+    );
+
+    const data = await getDocs(commentsQuery);
+    setComments(data.docs.map((doc) => ({ ...doc.data() })));
+  };
+
+  useEffect(() => {
+    console.log("New section Loaded");
+    getComments();
+  }, [id]);
+
   return (
-    <div>
-      <h2>{title}</h2>
-      <p>{user}</p>
-      <h2 className="description-heading">Description</h2>
-      <p>{description}</p>
+    <div className="communty-post-container">
+      <div className="header-container">
+        <div className="post-title">{selectedData.name}</div>
+        <div>{selectedData.description}</div>
+      </div>
 
-      <h3 className="comments-heading">Comments</h3>
-      {comments.map((comment, index) => (
-        <p key={index}>{comment}</p>
-      ))}
+      <h3 className="comments-heading">Comment</h3>
 
-      <form onSubmit={handleCommentSubmit}>
+      <div className="comment-input-container">
         <TextField
-          className="comment"
+          className="comment-input"
           type="text"
           value={newComment}
           onChange={handleCommentChange}
+          onKeyDownCapture={handleCommentSubmit}
           placeholder="What are your thoughts?"
           variant="outlined"
           multiline
           rows={4}
         />
-        <Button type="submit" variant="contained" className="submit-button">
+        <button className="submit-button" onClick={handleClick}>
           Submit
-        </Button>
-      </form>
+        </button>
+      </div>
 
-      <div className="comments-section"></div>
+      <div className="comments-container">
+        {comments.map((comment, index) => (
+          <Comment
+            user={auth.currentUser.displayName}
+            photo={auth.currentUser.photoURL}
+            comment={comment.comment}
+            key={index}
+          />
+        ))}
+      </div>
     </div>
   );
 }

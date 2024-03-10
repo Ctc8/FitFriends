@@ -2,26 +2,20 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 300px;
 	width: 500px;
-	justify-content: center;
-	flex-shrink: 0;
-	/* background-color: blue; */
+
 }
 
 .page-layout {
 	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
-	height: 100vh;
-	margin-left: 400px;
-	/* background-color: blueviolet; */
+	width: 1200px;
+	margin-top: 60px;
+
 }
 .workouts {
 	width: 80%;
-}
-
-.community-post {
-	width: 50%;
 }
 
 .community-header {
@@ -29,5 +23,6 @@
 }
 
 .posts {
-	min-width: 750px;
+	width: 600px;
+	margin-right: 100px;
 }
