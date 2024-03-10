@@ -25,11 +25,6 @@ const YouPage = ({ isAuth }) => {
     }
   }, []);
 
-  // const q = query(
-  //   collection(db, "WorkoutPlan"),
-  //   where("userID", "==", currentUser.uid)
-  // );
-
   // Sample data for demonstration, replace this with your actual data source
   const friendsData = [
     { Name: "Hello" },
