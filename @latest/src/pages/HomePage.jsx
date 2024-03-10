@@ -5,7 +5,7 @@ import { useState } from "react";
 import Exercise from "../components/Exercise";
 import { useNavigate } from "react-router-dom";
 
-import { Logo, Streak } from "../assets";
+import { Logo, Streak, Rest } from "../assets";
 
 function dayAsString(day) {
   let dayString;
@@ -105,7 +105,10 @@ const HomePage = ({ isAuth }) => {
     }
   });
 
+  const [dayMatch, setDayMatch] = useState(false);
+
   const workoutPlan = [
+    
     {
       bodyPart: "Quads",
       exercise: "Squats",
@@ -139,56 +142,60 @@ const HomePage = ({ isAuth }) => {
               <h2>{getDate()}</h2>
             </div>
           </div>
-          <div className="homepage-streak-container">
-            <h3>{streak}</h3> {/* streak number from data base */}
-            <img src={Streak} width="200" height="200"></img>
-          </div>
         </div>
 
-        <div className="homepage-workout-container">
-          <div className="homepage-workout-header-container">
-            <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
-            <p1>{workoutDesc}</p1> {/* retrieve workout description */}
-          </div>
-          <div className="homepage-workout-complete-container">
-            <h4>Workout Complete</h4>
-            <div className="homepage-checkbox">
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checked}
-                      onChange={handleChange}
-                      style={{ transform: "scale(2)" }}
-                    ></Checkbox>
-                  }
-                />
-              </FormGroup>
+        {dayMatch ? (
+          <div>
+            <div className="homepage-workout-container">
+              <div className="homepage-workout-header-container">
+                <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
+                <p1>{workoutDesc}</p1> {/* retrieve workout description */}
+              </div>
+              <div className="homepage-workout-complete-container">
+                <h4>Workout Complete</h4>
+                <div className="homepage-checkbox">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={checked}
+                          onChange={handleChange}
+                          style={{ transform: "scale(2)" }}
+                        >{checked && console.log("workout complete")}</Checkbox>
+                      }
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+            </div>
+            <div className="homepage-exercises-container">
+              <h2>Today's Exercises</h2>
+              {/* retrieve the day's exercise list */}
+              <div className="homepage-exercise-list-container">
+                {" "}
+                {workoutPlan.map((workout, index) => (
+                  <Exercise
+                    bodyPart={workout.bodyPart}
+                    exercise={workout.exercise}
+                    reps={workout.reps}
+                    sets={workout.sets}
+                    weight={workout.weight}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="homepage-exercises-container">
-          <h2>Today's Exercises</h2>
-          {/* retrieve the day's exercise list */}
-          <div className="homepage-exercise-list-container">
-            {" "}
-            {workoutPlan.map((workout, index) => (
-              <Exercise
-                bodyPart={workout.bodyPart}
-                exercise={workout.exercise}
-                reps={workout.reps}
-                sets={workout.sets}
-                weight={workout.weight}
-              />
-            ))}
+        ) : (
+          <div>
+            <div className="homepage-rest-container">
+              <h5>Enjoy your rest day!</h5>
+            </div>
           </div>
-        </div>
+        )}
+
       </div>
     </div>
-    // <div className="homepage">
 
-    // </div>
   );
 };
 
