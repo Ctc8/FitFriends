@@ -13,13 +13,13 @@ export const MadeWorkout = ({
     <div
       style={{
         backgroundColor: "whitesmoke",
-        border: "1px solid black",
         borderRadius: "20px",
         minWidth: "450px",
-        margin: "10px",
+        padding: "10px",
+        marginBottom: "30px",
       }}
     >
-      <Box sx={{ marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
+      <Box sx={{ marginLeft: "20px", marginTop: "10px" }}>
         <Grid container>
           <Grid
             item
