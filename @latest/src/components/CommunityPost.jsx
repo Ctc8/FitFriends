@@ -1,7 +1,5 @@
-import React from "react";
-
 const CommunityPost = () => {
-  return <div>CommunityPost</div>;
+  return <div>Community Post</div>;
 };
 
 export default CommunityPost;
