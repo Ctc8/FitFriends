@@ -54,7 +54,7 @@ const Login = ({ setIsAuth, isAuth }) => {
       <div className="auth-prompt-container">
         <div className="auth-signup-text">Sign up</div>
         <div className="auth-welcome-container">
-          <div>Welcome to Fit Friends!</div>
+          <div>Welcome to Fit Friendz!</div>
           <div>Click below to sign in or sign up!</div>
         </div>
       </div>
