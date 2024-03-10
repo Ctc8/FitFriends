@@ -65,7 +65,7 @@ const YouPage = ({ isAuth }) => {
         <Grid
           item
           sx={{
-            bgcolor: "lightgray",
+            bgcolor: "white",
             minWidth: "500px",
             minHeight: "700px",
             textAlign: "center",
@@ -76,27 +76,12 @@ const YouPage = ({ isAuth }) => {
           }}
         >
           <h1 style={{ color: "black" }}>Your Workouts</h1>
-          <Box
-            sx={{
-              bgcolor: "whitesmoke",
-              overflow: "auto",
-              maxHeight: "450px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              alignSelf: "center",
-              marginTop: "20px",
-              marginLeft: "-15px",
-            }}
-          >
+          <Box>
             {workoutData.map((workout) =>
               workout.workoutData.map((exercise) => (
                 <MadeWorkout muscle={exercise.bodyPart} name={workout.user} />
               ))
             )}
-          </Box>
-          <Box>
-            <img src={logo} alt="" />
           </Box>
         </Grid>
         <Grid
@@ -126,7 +111,7 @@ const YouPage = ({ isAuth }) => {
               <Friend key={index} name={friend.Name} muscle="muscle" />
             ))}
           </Box>
-          <Box sx={{ marginTop: "20px" }}>
+          <Box sx={{ margin: "20px" }}>
             <TextField label="Add FitFriend" variant="outlined" />
             <Button variant="contained" sx={{ height: "55px" }}>
               Add
