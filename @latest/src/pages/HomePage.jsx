@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
+import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 import { getDocs, query, collection, where } from "firebase/firestore";
 import { auth, db } from "../../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
@@ -8,7 +8,7 @@ import { useState } from "react";
 import Exercise from "../components/Exercise";
 import { useNavigate } from "react-router-dom";
 
-import { Logo, Streak } from "../assets";
+import { Logo } from "../assets";
 
 function dayAsString(day) {
   let dayString;
