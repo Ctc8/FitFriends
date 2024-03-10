@@ -33,7 +33,7 @@ const YouPage = ({ isAuth }) => {
       console.log(fullData);
 
       setWorkoutData(fullData);
-      console.log(fullData[0].workoutData[0]);
+      console.log(fullData[0].workoutData[0].exercise);
     });
   }, []);
 
@@ -79,7 +79,15 @@ const YouPage = ({ isAuth }) => {
           <Box>
             {workoutData.map((workout) =>
               workout.workoutData.map((exercise) => (
-                <MadeWorkout muscle={exercise.bodyPart} name={workout.user} />
+                <MadeWorkout
+                  name={workout.name}
+                  description={workout.description}
+                  exercise={exercise.exercise}
+                  sets={exercise.sets}
+                  reps={exercise.reps}
+                  weight={exercise.weight}
+                  muscle={exercise.bodyPart}
+                />
               ))
             )}
           </Box>
