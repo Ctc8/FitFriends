@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
+import { getDocs, query, collection, where } from "firebase/firestore";
+import { auth, db } from "../../firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { useState } from "react";
 import Exercise from "../components/Exercise";
@@ -92,6 +95,10 @@ function getDate() {
 
 const HomePage = ({ isAuth }) => {
   const [checked, setChecked] = useState(true);
+  const [currentUser, setCurrentUser] = useState({});
+  const [workoutData, setWorkoutData] = useState([]);
+  const [dailyWorkoutDate, setDailyWorkoutData] = useState([]);
+
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -103,7 +110,22 @@ const HomePage = ({ isAuth }) => {
       console.log(isAuth);
       navigate("/login");
     }
-  });
+
+    onAuthStateChanged(auth, async (user) => {
+      const day = new Date().getDay();
+
+      setCurrentUser(user);
+
+      const q = query(
+        collection(db, "WorkoutPlan"),
+        where("userID", "==", user.uid)
+      );
+
+      const data = await getDocs(q);
+      const fullData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(fullData);
+    });
+  }, []);
 
   const [dayMatch, setDayMatch] = useState(true);
 
@@ -125,7 +147,6 @@ const HomePage = ({ isAuth }) => {
   ];
 
   const streak = 4;
-  const user = "User";
   const workoutName = "Leg Day";
   const workoutDesc =
     "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
@@ -137,7 +158,8 @@ const HomePage = ({ isAuth }) => {
           <div className="homepage-header">
             <img src={Logo} width="200" height="200"></img>
             <div className="homepage-title">
-              <h1>Welcome, {user}</h1> {/* username from auth data */}
+              <h1>Welcome, {currentUser.displayName}</h1>{" "}
+              {/* username from auth data */}
               <h2>{getDate()}</h2>
             </div>
           </div>
