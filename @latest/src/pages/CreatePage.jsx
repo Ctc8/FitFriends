@@ -8,8 +8,8 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase-config.js";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../../firebase-config.js";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
@@ -51,7 +51,8 @@ const CreatePage = () => {
 
   const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
-      // workout plan json
+      const date = new Date();
+
       const workoutPlan = {
         name: name,
         description: description,
@@ -66,12 +67,6 @@ const CreatePage = () => {
       };
 
       await addDoc(postCollectionRef, workoutPlan);
-
-      console.log(workoutPlan);
-      // console.log("Name:", name);
-      // console.log("Description:", description);
-      // console.log("Workout Data:", workoutData);
-      console.log("Checkbox State:", checkboxState);
     } else {
       invalidSubmit();
     }
