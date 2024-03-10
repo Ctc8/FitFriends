@@ -105,7 +105,7 @@ const HomePage = ({ isAuth }) => {
     }
   });
 
-  const [dayMatch, setDayMatch] = useState(false);
+  const [dayMatch, setDayMatch] = useState(true);
 
   const workoutPlan = [
     
