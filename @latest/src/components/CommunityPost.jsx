@@ -9,13 +9,12 @@ import {
   where,
 } from "firebase/firestore";
 
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import "./CommunityPost.css";
 import { auth, db } from "../../firebase-config";
 import Comment from "./Comment";
 
-export default function CommunityPost({ selectedData, postComments, id }) {
+export default function CommunityPost({ selectedData, id }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
@@ -82,8 +81,13 @@ export default function CommunityPost({ selectedData, postComments, id }) {
         <div>{selectedData.description}</div>
       </div>
 
-      <h3 className="comments-heading">Comment</h3>
+      <div>
+        {selectedData.workoutData.map((workout, index) => (
+          <div></div>
+        ))}
+      </div>
 
+      <h3 className="comments-heading">Comment</h3>
       <div className="comment-input-container">
         <TextField
           className="comment-input"
