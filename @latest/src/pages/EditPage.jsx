@@ -48,6 +48,34 @@ const EditPage = () => {
 
 	const postCollectionRef = collection(db, "WorkoutPlan")
 
+	const handleWorkoutDataChange = (index, newWorkoutData) => {
+		setWorkoutData(prevWorkoutData => {
+			const updatedWorkoutData = [...prevWorkoutData]
+			updatedWorkoutData[index] = newWorkoutData
+			return updatedWorkoutData
+		})
+	}
+
+	// const handleWorkoutDataChange = (index, newWorkoutData) => {
+	// 	setWorkoutData(prevWorkoutData => {
+	// 		const updatedWorkoutData = [...prevWorkoutData]
+	// 		updatedWorkoutData[index] = newWorkoutData
+	// 		return updatedWorkoutData
+	// 	})
+	
+	// 	// Get the document reference
+	// 	const docRef = db.collection('workouts').doc('your-document-id');
+	
+	// 	// Update the document
+	// 	docRef.update({
+	// 		workoutData: updatedWorkoutData
+	// 	}).then(() => {
+	// 		console.log("Document successfully updated!");
+	// 	}).catch((error) => {
+	// 		console.error("Error updating document: ", error);
+	// 	});
+	// }
+
 	const handleSubmit = async () => {
 		if (Object.values(checkboxState).some(value => value)) {
 			// workout plan json
@@ -166,9 +194,18 @@ const EditPage = () => {
 							height: "50px",
 							marginLeft: "10px",
 						}}
-						onClick={handleSubmit}
+						onClick={() => {
+							handleWorkoutDataChange(0, {
+								bodypart: "bodypart",
+								exercise: "exercise",
+								reps: "reps",
+								sets: "sets",
+								weight: "weight",
+							})
+							handleSubmit()
+						}}
 					>
-						Submit
+						Edit
 					</Button>
 				</div>
 				<div style={{ marginTop: 20 }}>
