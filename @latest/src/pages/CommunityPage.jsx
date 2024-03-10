@@ -5,10 +5,13 @@ import "./CommunityPage.css";
 
 import { db } from "../../firebase-config";
 import { collection, query, getDocs, orderBy, where } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
-export default function CommunityPage() {
+export default function CommunityPage({ isAuth }) {
   const [postList, setPostList] = useState([]);
   const [comments, setComments] = useState([]);
+
+  let navigate = useNavigate();
 
   const q = query(collection(db, "WorkoutPlan"), orderBy("timestamp", "desc"));
 
@@ -39,6 +42,10 @@ export default function CommunityPage() {
   }, []);
 
   useEffect(() => {
+    if (!isAuth) {
+      navigate("/login");
+    }
+
     postList.forEach((post) => {
       console.log(post.user);
     });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   TextField,
@@ -16,7 +16,7 @@ import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
 import Workout from "../components/Workouts.jsx";
 
-const CreatePage = () => {
+const CreatePage = ({ isAuth }) => {
   let navigate = useNavigate();
 
   const [workoutCount, setWorkoutCount] = useState(1);
@@ -33,7 +33,7 @@ const CreatePage = () => {
     Sunday: false,
   });
 
-  const addWorkout = () => {
+  const addWorkout = ({ isAuth }) => {
     setWorkoutCount((prevCount) => prevCount + 1);
   };
 
@@ -83,6 +83,12 @@ const CreatePage = () => {
       [day]: !prevState[day],
     }));
   };
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/login");
+    }
+  });
 
   return (
     <>

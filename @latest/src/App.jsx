@@ -86,8 +86,11 @@ function App() {
       )}
       <div className="pages">
         <Routes>
-          <Route path="/CreatePage" element={<CreatePage />} />
-          <Route path="/Community" element={<CommunityPage />} />
+          <Route path="/CreatePage" element={<CreatePage isAuth={isAuth} />} />
+          <Route
+            path="/Community"
+            element={<CommunityPage isAuth={isAuth} />}
+          />
           <Route path="/" element={<HomePage isAuth={isAuth} />} />
           <Route path="/youPage" element={<YouPage isAuth={isAuth} />} />
         </Routes>

@@ -16,7 +16,6 @@ const YouPage = ({ isAuth }) => {
 
   useEffect(() => {
     if (!isAuth) {
-      console.log(isAuth);
       navigate("/login");
     }
 
