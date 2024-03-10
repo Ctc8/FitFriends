@@ -30,9 +30,9 @@ const YouPage = () => {
           <img src={logo} alt="" />
           <h1>Adam Bowen</h1>
         </Grid>
-        <Grid item sx={{ bgcolor:"lightgray",minWidth:"500px", minHeight: "700px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px" }}>
-        <h1>Your Workouts</h1>
-          <Box sx={{ overflow: "auto", maxHeight: "450px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <Grid item sx={{ bgcolor:"whitesmoke",minWidth:"500px", minHeight: "700px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px", borderRadius:"10px" }}>
+        <h1 style={{ color: "black" }}>Your Workouts</h1>
+          <Box sx={{ overflow: "auto", maxHeight: "450px", display: "flex", flexDirection: "column", alignItems: "center",border:"1px solid black"}}>
             {workoutData.map((workout, index) => (
               <MadeWorkout key={index} name={workout.Name} muscle="muscle" />
             ))}
