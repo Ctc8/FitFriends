@@ -48,7 +48,8 @@ export default function CommunityPost({ selectedData, postComments, id }) {
         comment: newComment,
         postID: selectedData.uid,
         timestamp: serverTimestamp(),
-        user: auth.currentUser.displayName,
+        username: auth.currentUser.displayName,
+        photoURL: auth.currentUser.photoURL,
       });
 
       setNewComment("");
@@ -68,7 +69,6 @@ export default function CommunityPost({ selectedData, postComments, id }) {
   };
 
   useEffect(() => {
-    console.log("New section Loaded");
     getComments();
   }, [id]);
 
@@ -100,12 +100,19 @@ export default function CommunityPost({ selectedData, postComments, id }) {
 
       <div className="comments-container">
         {comments.map((comment, index) => (
-          <Comment
-            user={auth.currentUser.displayName}
-            photo={auth.currentUser.photoURL}
-            comment={comment.comment}
-            key={index}
-          />
+          <div className="individual-comment-container">
+            <div className="comment-userInfo-message-container">
+              <div className="comment-username-photo-container">
+                <img
+                  src={comment.photo}
+                  alt="userPhoto"
+                  className="comment-user-photo"
+                />
+                <div className="comment-author">{comment.user}</div>
+              </div>
+              <div className="comment-text">{comment.comment}</div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
