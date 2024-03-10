@@ -9,7 +9,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "../../firebase-config.js";
+import { db, auth } from "../../firebase-config.js";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
