@@ -1,0 +1,37 @@
+.individual-comment-container{
+    background: #E4E4E4;
+    padding: 10px;
+    width: 480px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+}
+
+.comment-userInfo-message-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+
+}
+
+.comment-username-photo-container {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-user-photo{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-right: 10px;
+}
+
+.comment-text {
+    font-size: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: justify;
+}
