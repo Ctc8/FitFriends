@@ -1,7 +1,18 @@
 import React from 'react'
-
-export const madeWorkout = () => {
+import { Grid, Box, Button } from "@mui/material";
+export const MadeWorkout = ({name, muscle}) => {
   return (
-    <div>madeWorkout</div>
+    <Button sx={{maxWidth: "300px",marginTop:"5px", marginBottom:"5px", bgcolor:"white", color:"black", borderWidth:"5px" }}>
+      <Grid container spacing={2} sx={{maxWidth:"300px"}}>
+  <Grid item> 
+    <h1>Leg Day</h1>
+  </Grid>
+  <Grid item sx={{ wordWrap: "break-word", maxWidth:"300px", marginTop: "-50px", textAlign:"left" }}>
+    <p>This day I will work </p>
+  </Grid>
+</Grid>
+
+
+    </Button>
   )
 }
