@@ -57,6 +57,12 @@ const CreatePage = () => {
         description: description,
         workoutData: [...workoutData],
         days: checkboxState,
+        user: auth.currentUser.displayName,
+        dayCreated: date.getDay(),
+        monthCreated: date.getMonth() + 1,
+        yearCreated: date.getFullYear(),
+        timestamp: serverTimestamp(),
+        userID: auth.currentUser.uid,
       };
 
       await addDoc(postCollectionRef, workoutPlan);

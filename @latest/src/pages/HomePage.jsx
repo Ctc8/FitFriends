@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styles from "./HomePage.css";
 import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
 
 import { useState } from "react";
