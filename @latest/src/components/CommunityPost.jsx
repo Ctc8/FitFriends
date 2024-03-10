@@ -68,7 +68,6 @@ export default function CommunityPost({ selectedData, id }) {
 
     const data = await getDocs(commentsQuery);
     setComments(data.docs.map((doc) => ({ ...doc.data() })));
-    console.log(data.docs()[0].userPhoto);
   };
 
   useEffect(() => {
