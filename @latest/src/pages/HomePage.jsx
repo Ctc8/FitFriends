@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./HomePage.css";
-import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
+import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
+
 import { useState } from "react";
 import Exercise from "../components/Exercise";
 import { useNavigate } from "react-router-dom";
@@ -129,61 +130,66 @@ const HomePage = ({ isAuth }) => {
     "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
 
   return (
-    <div className="homepage-container">
-      <div className="homepage-header-container">
-        <div className="homepage-header">
-          <img src={Logo} width="200" height="200"></img>
-          <div className="homepage-title">
-            <h1>Welcome, {user}</h1> {/* username from auth data */}
-            <h2>{getDate()}</h2>
+    <div className="homepage">
+      <div className="homepage-container">
+        <div className="homepage-header-container">
+          <div className="homepage-header">
+            <img src={Logo} width="200" height="200"></img>
+            <div className="homepage-title">
+              <h1>Welcome, {user}</h1> {/* username from auth data */}
+              <h2>{getDate()}</h2>
+            </div>
+          </div>
+          <div className="homepage-streak-container">
+            <h3>{streak}</h3> {/* streak number from data base */}
+            <img src={Streak} width="200" height="200"></img>
           </div>
         </div>
-        <div className="homepage-streak-container">
-          <h3>{streak}</h3> {/* streak number from data base */}
-          <img src={Streak} width="200" height="200"></img>
-        </div>
-      </div>
 
-      <div className="homepage-workout-container">
-        <div className="homepage-workout-header-container">
-          <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
-          <p1>{workoutDesc}</p1> {/* retrieve workout description */}
+        <div className="homepage-workout-container">
+          <div className="homepage-workout-header-container">
+            <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
+            <p1>{workoutDesc}</p1> {/* retrieve workout description */}
+          </div>
+          <div className="homepage-workout-complete-container">
+            <h4>Workout Complete</h4>
+            <div className="homepage-checkbox">
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={checked}
+                      onChange={handleChange}
+                      style={{ transform: "scale(2)" }}
+                    ></Checkbox>
+                  }
+                />
+              </FormGroup>
+            </div>
+          </div>
         </div>
-        <div className="homepage-workout-complete-container">
-          <h4>Workout Complete</h4>
-          <div className="homepage-checkbox">
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    style={{ transform: "scale(2)" }}
-                  ></Checkbox>
-                }
+
+        <div className="homepage-exercises-container">
+          <h2>Today's Exercises</h2>
+          {/* retrieve the day's exercise list */}
+          <div className="homepage-exercise-list-container">
+            {" "}
+            {workoutPlan.map((workout, index) => (
+              <Exercise
+                bodyPart={workout.bodyPart}
+                exercise={workout.exercise}
+                reps={workout.reps}
+                sets={workout.sets}
+                weight={workout.weight}
               />
-            </FormGroup>
+            ))}
           </div>
-        </div>
-      </div>
-
-      <div className="homepage-exercises-container">
-        <h2>Today's Exercises</h2>
-        {/* retrieve the day's exercise list */}
-        <div className="homepage-exercise-list-container">
-          {" "}
-          {workoutPlan.map((workout, index) => (
-            <Exercise
-              bodyPart={workout.bodyPart}
-              exercise={workout.exercise}
-              reps={workout.reps}
-              sets={workout.sets}
-              weight={workout.weight}
-            />
-          ))}
         </div>
       </div>
     </div>
+    // <div className="homepage">
+
+    // </div>
   );
 };
 

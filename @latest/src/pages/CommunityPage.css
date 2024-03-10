@@ -1,0 +1,28 @@
+.community-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 500px;
+
+}
+
+.page-layout {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 1200px;
+	margin-top: 60px;
+
+}
+.workouts {
+	width: 80%;
+}
+
+.community-header {
+  font-size: 30px;
+}
+
+.posts {
+	width: 600px;
+	margin-right: 100px;
+}
