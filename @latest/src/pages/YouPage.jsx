@@ -59,7 +59,14 @@ const YouPage = ({ isAuth }) => {
             marginTop: "50px",
           }}
         >
-          <img src={currentUser.photoURL} alt="profilePhoto" />
+          <img
+            src={currentUser.photoURL}
+            alt="profilePhoto"
+            style={{
+              borderRadius: "50%",
+              width: "150px",
+            }}
+          />
           <h1>{currentUser.displayName}</h1>
         </Grid>
         <Grid

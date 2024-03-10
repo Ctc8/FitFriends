@@ -10,12 +10,15 @@ import {
 } from "@mui/material";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../../firebase-config.js";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
 import Workout from "../components/Workouts.jsx";
 
 const CreatePage = () => {
+  let navigate = useNavigate();
+
   const [workoutCount, setWorkoutCount] = useState(1);
   const [name, setName] = useState(""); // State to store the name
   const [description, setDescription] = useState(""); // State to store the description
@@ -56,13 +59,7 @@ const CreatePage = () => {
 
       await addDoc(postCollectionRef, workoutPlan);
 
-      console.log(workoutPlan);
-      // console.log("Name:", name);
-      // console.log("Description:", description);
-      // console.log("Workout Data:", workoutData);
-      console.log("Checkbox State:", checkboxState);
-
-      window.location.pathname = "/";
+      navigate("/");
     } else {
       invalidSubmit();
     }
@@ -89,7 +86,14 @@ const CreatePage = () => {
 
   return (
     <>
-      <Box sx={{ borderRadius: 2, paddingLeft: 55, paddingRight: 15 }}>
+      <Box
+        sx={{
+          borderRadius: 2,
+          paddingLeft: 55,
+          paddingRight: 15,
+          marginTop: 10,
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -103,11 +107,15 @@ const CreatePage = () => {
             <img src={logo} alt="workout plan" className={styles.image} />
             <div>
               <h1>Create a Workout Plan</h1>
-              <p>Some description or additional content can go here...</p>
             </div>
           </div>
         </Box>
-        <div className={styles.TextField}>
+        <div
+          className={styles.TextField}
+          style={{
+            marginTop: "20px",
+          }}
+        >
           <Stack spacing={4}>
             <Stack direction={"row"} spacing={4}>
               <TextField
