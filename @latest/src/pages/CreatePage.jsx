@@ -30,24 +30,24 @@ const CreatePage = () => {
     Sunday: false,
   });
 
-  const [workouts, setWorkouts] = useState([])
+  const [workouts, setWorkouts] = useState([]);
 
   const addWorkout = () => {
     setWorkoutCount((prevCount) => prevCount + 1);
   };
 
   //Remove
-	const handleRemove = index => {
-		setWorkouts(prevWorkouts => {
-			if (prevWorkouts.length > 1) {
-				return prevWorkouts.filter((workout, i) => i !== index)
-			}
-			return prevWorkouts
-		})
-		setWorkoutCount(prevCount => (prevCount > 1 ? prevCount - 1 : 1))
-	}
+  const handleRemove = (index) => {
+    setWorkouts((prevWorkouts) => {
+      if (prevWorkouts.length > 1) {
+        return prevWorkouts.filter((workout, i) => i !== index);
+      }
+      return prevWorkouts;
+    });
+    setWorkoutCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
+  };
 
-	const postCollectionRef = collection(db, "WorkoutPlan")
+  const postCollectionRef = collection(db, "WorkoutPlan");
 
   const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
@@ -135,9 +135,9 @@ const CreatePage = () => {
         {[...Array(workoutCount)].map((_, index) => (
           <div key={index}>
             <Workout
-							onChange={handleInputChange}
-							onRemove={() => handleRemove(index)}
-						/>
+              onChange={handleInputChange}
+              onRemove={() => handleRemove(index)}
+            />
           </div>
         ))}
         <div
