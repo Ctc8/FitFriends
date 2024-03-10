@@ -51,6 +51,7 @@ const CreatePage = () => {
         monthCreated: date.getMonth() + 1,
         yearCreated: date.getFullYear(),
         timestamp: serverTimestamp(),
+        userID: auth.currentUser.uid,
       };
 
       await addDoc(postCollectionRef, workoutPlan);

@@ -4,27 +4,32 @@ import logo from "../assets/logo.png"; // Import your profile icon
 import { MadeWorkout } from "../components/madeWorkout.jsx"; // Import the MadeWorkout component
 import { Friend } from "../components/friend.jsx"; // Import the Friend component
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase-config.js";
+import { auth, db } from "../../firebase-config.js";
 import { onAuthStateChanged } from "firebase/auth";
+import { collection, where, query, getDocs } from "firebase/firestore";
 
 const YouPage = ({ isAuth }) => {
   const [currentUser, setCurrentUser] = useState({});
-  const [workoutData, setWorkoutData] = useState({});
+  const [workoutData, setWorkoutData] = useState([]);
 
   let navigate = useNavigate();
+
+  onAuthStateChanged(auth, (user) => {
+    setCurrentUser(user);
+  });
 
   useEffect(() => {
     if (!isAuth) {
       console.log(isAuth);
       navigate("/login");
     }
-
-    onAuthStateChanged(auth, async (user) => {
-      setCurrentUser(user);
-      console.log(currentUser.displayName);
-      console.log(currentUser.photoURL);
-    });
   }, []);
+
+  // const q = query(
+  //   collection(db, "WorkoutPlan"),
+  //   where("userID", "==", currentUser.uid)
+  // );
+
   // Sample data for demonstration, replace this with your actual data source
   const friendsData = [
     { Name: "Hello" },
