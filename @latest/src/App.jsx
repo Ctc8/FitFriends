@@ -82,7 +82,7 @@ function App() {
         <Routes>
           <Route path="/CreatePage" element={<CreatePage />} />
           <Route path="/Community" element={<CommunityPage />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage isAuth={isAuth} />} />
         </Routes>
       </div>
       <Routes>
