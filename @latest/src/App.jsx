@@ -96,7 +96,10 @@ function App() {
         </Routes>
       </div>
       <Routes>
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+        <Route
+          path="/login"
+          element={<Login setIsAuth={setIsAuth} isAuth={isAuth} />}
+        />
       </Routes>
     </BrowserRouter>
   );

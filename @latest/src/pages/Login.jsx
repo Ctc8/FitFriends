@@ -6,9 +6,16 @@ import { addDoc, getDocs, collection, query, where } from "firebase/firestore";
 import "./styles/Login.css";
 
 import { Logo } from "../assets";
+import { useEffect } from "react";
 
-const Login = ({ setIsAuth }) => {
+const Login = ({ setIsAuth, isAuth }) => {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  });
 
   const userListRef = collection(db, "Users");
 
