@@ -5,7 +5,7 @@ import { addDoc, getDocs, collection, query, where } from "firebase/firestore";
 
 import "./styles/Login.css";
 
-import Logo from "../assets";
+import { Logo } from "../assets";
 
 const Login = ({ setIsAuth }) => {
   let navigate = useNavigate();

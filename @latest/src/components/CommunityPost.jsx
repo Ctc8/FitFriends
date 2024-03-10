@@ -23,10 +23,10 @@ export default function CommunityPost({ selectedData }) {
 		<div>
 			<h2>{title}</h2>
 			<p>{user}</p>
-			<h2>Description</h2>
+			<h2 className="description-heading">Description</h2>
 			<p>{description}</p>
 
-			<h3>Comments</h3>
+			<h3 className="comments-heading">Comments</h3>
 			{comments.map((comment, index) => (
 				<p key={index}>{comment}</p>
 			))}

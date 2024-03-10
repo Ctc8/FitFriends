@@ -24,6 +24,10 @@
 	width: 50%;
 }
 
+.community-header {
+  font-size: 30px;
+}
+
 .posts {
 	min-width: 750px;
 }

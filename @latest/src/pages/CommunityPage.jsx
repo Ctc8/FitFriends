@@ -37,7 +37,7 @@ export default function CommunityPage() {
 			<div className="page-layout">
 				<div className="container">
 					<div className="workouts">
-						<h1>Community Workouts</h1>
+						<h1 className="community-header">Community Workouts</h1>
 						{postList.map((post, index) => (
 							<Workouts2
 								key={index}
