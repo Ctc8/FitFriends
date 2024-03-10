@@ -53,6 +53,8 @@ const CreatePage = () => {
     if (Object.values(checkboxState).some((value) => value)) {
       const date = new Date();
 
+      console.log(workoutData);
+
       const workoutPlan = {
         name: name,
         description: description,
