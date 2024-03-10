@@ -170,7 +170,7 @@ const HomePage = ({ isAuth }) => {
           </div>
         </div>
 
-        {dayMatch ? (
+        {dailyWorkoutData.length > 0 ? (
           <div>
             <div className="homepage-workout-container">
               <div className="homepage-workout-header-container">
