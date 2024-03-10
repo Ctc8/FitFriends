@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import styles from "./HomePage.css";
 import { Checkbox, FormGroup, FormControlLabel, Box } from "@mui/material";
 import { useState } from "react";
 import Exercise from "../components/Exercise";
@@ -108,7 +107,6 @@ const HomePage = ({ isAuth }) => {
   const [dayMatch, setDayMatch] = useState(true);
 
   const workoutPlan = [
-    
     {
       bodyPart: "Quads",
       exercise: "Squats",
@@ -161,7 +159,9 @@ const HomePage = ({ isAuth }) => {
                           checked={checked}
                           onChange={handleChange}
                           style={{ transform: "scale(2)" }}
-                        >{checked && console.log("workout complete")}</Checkbox>
+                        >
+                          {checked && console.log("workout complete")}
+                        </Checkbox>
                       }
                     />
                   </FormGroup>
@@ -192,10 +192,8 @@ const HomePage = ({ isAuth }) => {
             </div>
           </div>
         )}
-
       </div>
     </div>
-
   );
 };
 
