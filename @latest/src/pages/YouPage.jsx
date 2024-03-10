@@ -30,9 +30,9 @@ const YouPage = () => {
           <img src={logo} alt="" />
           <h1>Adam Bowen</h1>
         </Grid>
-        <Grid item sx={{ bgcolor:"whitesmoke",minWidth:"500px", minHeight: "700px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px", borderRadius:"10px" }}>
+        <Grid item sx={{ bgcolor:"lightgray",minWidth:"500px", minHeight: "700px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px", borderRadius:"20px" }}>
         <h1 style={{ color: "black" }}>Your Workouts</h1>
-          <Box sx={{ overflow: "auto", maxHeight: "450px", display: "flex", flexDirection: "column", alignItems: "center",border:"1px solid black"}}>
+          <Box sx={{ bgcolor: "whitesmoke", overflow: "auto", maxHeight: "450px", display: "flex", flexDirection: "column", alignItems: "center", alignSelf: "center", marginTop: "20px", marginLeft:"-15px",  }}>
             {workoutData.map((workout, index) => (
               <MadeWorkout key={index} name={workout.Name} muscle="muscle" />
             ))}
@@ -41,9 +41,9 @@ const YouPage = () => {
             <img src={logo} alt="" />
           </Box>
           </Grid>
-          <Grid item sx={{minHeight: "500px", border: "1px solid lightgray",borderRadius:"10px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px" }}>
+          <Grid item sx={{minHeight: "500px", border: "1px solid lightgray",borderRadius:"20px",textAlign:"center",alignContent:"center", marginTop:"50px", marginLeft:"30px" }}>
             <div style={{ marginTop: "20px" }}></div>
-            <h1>FitFriends</h1>
+            <h1 style={{color:"darkblue"}}>FitFriends</h1>
             <Box sx={{ overflow: "auto", maxHeight: "500px", display: "flex", flexDirection: "column", alignItems: "center"}}>
               {friendsData.map((friend, index) => (
                 <Friend key={index} name={friend.Name} muscle="muscle" />
