@@ -248,7 +248,7 @@ const CreatePage = () => {
               </Grid>
               <Grid item md={1.7}>
                 <FormControlLabel
-                  label="Friday"
+                  label="Saturday"
                   control={
                     <Checkbox
                       sx={{ color: "whitesmoke" }}
