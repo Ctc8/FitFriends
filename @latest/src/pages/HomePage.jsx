@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./HomePage.css";
 import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 import { useState } from "react";
 import Exercise from "../components/Exercise";
+import { useNavigate } from "react-router-dom";
 
 import { Logo, Streak } from "../assets";
-
-// import IMAGES from "./../assets/index.js";
-// import ICONS from "./../assets/index.js";
 
 function dayAsString(day) {
   let dayString;
@@ -92,11 +90,20 @@ function getDate() {
   return `${dayString} ${monthString} ${date}, ${year}`;
 }
 
-const HomePage = () => {
+const HomePage = ({ isAuth }) => {
   const [checked, setChecked] = useState(true);
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuth) {
+      console.log(isAuth);
+      navigate("/login");
+    }
+  });
 
   const workoutPlan = [
     {
