@@ -1,18 +1,17 @@
 import React from "react";
 import styles from "./HomePage.css";
-import logo from "./../assets/logo.png";
-import streakIcon from "./../assets/streak-icon.png";
-import {Checkbox, FormGroup, FormControlLabel} from "@mui/material";
+import { Checkbox, FormGroup, FormControlLabel } from "@mui/material";
 import { useState } from "react";
 import Exercise from "../components/Exercise";
 
+import { Logo, Streak } from "../assets";
 
 // import IMAGES from "./../assets/index.js";
 // import ICONS from "./../assets/index.js";
 
 function dayAsString(day) {
   let dayString;
-  switch(day){
+  switch (day) {
     case 1:
       dayString = "Sunday";
       break;
@@ -40,7 +39,7 @@ function dayAsString(day) {
 
 function monthAsString(month) {
   let monthString;
-  switch(month){
+  switch (month) {
     case 1:
       monthString = "January";
       break;
@@ -78,7 +77,7 @@ function monthAsString(month) {
       monthString = "December";
       break;
   }
-  return monthString;  
+  return monthString;
 }
 
 function getDate() {
@@ -93,81 +92,92 @@ function getDate() {
   return `${dayString} ${monthString} ${date}, ${year}`;
 }
 
-
 const HomePage = () => {
   const [checked, setChecked] = useState(true);
-  const handleChange = (event) => {setChecked(event.target.checked);}
-  
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
   const workoutPlan = [
-    { 
+    {
       bodyPart: "Quads",
       exercise: "Squats",
       sets: 10,
       reps: 4,
-      weight: 70
+      weight: 70,
     },
     {
       bodyPart: "Biceps",
       exercise: "Curls",
       sets: 3,
       reps: 4,
-      weight: 10 
-    }
-  ]
+      weight: 10,
+    },
+  ];
 
   const streak = 4;
   const user = "User";
   const workoutName = "Leg Day";
-  const workoutDesc = "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
+  const workoutDesc =
+    "jaldfjlkajfdklasjkljfklajflkasjfklsjkf ajsdklfjakslfjk fkas jflkjsfkljdsa";
 
-
-  return <div className="homepage-container">
-    <div className="homepage-header-container">
-      <div className="homepage-header">
-        <img src={logo} width="200" height="200"></img>
-        <div className="homepage-title">
-          <h1>Welcome, {user}</h1> {/* username from auth data */}
-          <h2>{getDate()}</h2>
+  return (
+    <div className="homepage-container">
+      <div className="homepage-header-container">
+        <div className="homepage-header">
+          <img src={Logo} width="200" height="200"></img>
+          <div className="homepage-title">
+            <h1>Welcome, {user}</h1> {/* username from auth data */}
+            <h2>{getDate()}</h2>
+          </div>
+        </div>
+        <div className="homepage-streak-container">
+          <h3>{streak}</h3> {/* streak number from data base */}
+          <img src={Streak} width="200" height="200"></img>
         </div>
       </div>
-      <div className="homepage-streak-container">
-        <h3>{streak}</h3> {/* streak number from data base */}
-        <img src={streakIcon} width="200" height="200"></img>
-      </div>
-    </div>
 
-    <div className="homepage-workout-container">
-      <div className="homepage-workout-header-container">
-        <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
-        <p1>{workoutDesc}</p1> {/* retrieve workout description */}
-      </div>
-      <div className="homepage-workout-complete-container">
-        <h4>Workout Complete</h4>
-        <div className="homepage-checkbox">
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox checked={checked} onChange={handleChange} style={{transform: "scale(2)",}}></Checkbox>}/>
-          </FormGroup>  
+      <div className="homepage-workout-container">
+        <div className="homepage-workout-header-container">
+          <h2>{workoutName}</h2> {/* retrieve the day's workout title */}
+          <p1>{workoutDesc}</p1> {/* retrieve workout description */}
         </div>
-        
+        <div className="homepage-workout-complete-container">
+          <h4>Workout Complete</h4>
+          <div className="homepage-checkbox">
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    style={{ transform: "scale(2)" }}
+                  ></Checkbox>
+                }
+              />
+            </FormGroup>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div className="homepage-exercises-container">
-      <h2>Today's Exercises</h2>
-{/* retrieve the day's exercise list */}      
-      <div className="homepage-exercise-list-container"> {workoutPlan.map((workout, index) => (
-          <Exercise
-            bodyPart={workout.bodyPart}
-            exercise={workout.exercise}
-            reps={workout.reps}
-            sets={workout.sets}
-            weight={workout.weight}
-          />
+      <div className="homepage-exercises-container">
+        <h2>Today's Exercises</h2>
+        {/* retrieve the day's exercise list */}
+        <div className="homepage-exercise-list-container">
+          {" "}
+          {workoutPlan.map((workout, index) => (
+            <Exercise
+              bodyPart={workout.bodyPart}
+              exercise={workout.exercise}
+              reps={workout.reps}
+              sets={workout.sets}
+              weight={workout.weight}
+            />
           ))}
-      </div>      
+        </div>
+      </div>
     </div>
-  </div>
+  );
 };
 
 export default HomePage;

@@ -1,0 +1,128 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin: 0px;
+}
+
+.App {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 300px;
+    height: 730px;
+
+    background: #FAFAFA;
+    
+    position: fixed;
+}
+
+.navbar-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 350px;
+}
+
+.currentUser-info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    margin-top: 10px;
+    background: #E4E4E4;
+    width: 260px;
+
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+
+}
+
+.navbar-profile-picture {
+    width: 50px;
+    border-radius: 25px;
+}
+
+.navbar-username {
+    font-size: 14px;
+}
+
+.navbar-email {
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.username-email-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+    gap: 3px;
+}
+
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.navbar-clickable {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: #3D3D3D;
+    text-decoration: none;
+
+    padding-left: 15px;
+    gap: 10px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.navbar-clickable:hover {
+    color: black;
+    background: #E4E4E4;
+}
+
+.logout-button {
+    text-align: center;
+    width: 280px;
+    height: 60px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+    gap: 10px;
+
+    margin-top: 10px;
+    background: none;
+    border: none;
+    border-radius: 10px;
+}
+
+.logout-button:hover{
+    cursor: pointer;
+    background: #E4E4E4;
+}
+
+.logout-button-text {
+    font-size: 14px;
+}
+
+.pages{
+    float: right;
+}

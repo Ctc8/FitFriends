@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import {
+  Stack,
+  TextField,
+  Button,
+  Box,
+  Grid,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase-config.js";
+
 import styles from "./CreatePage.module.css";
 import logo from "../assets/logo.png";
-import { Stack, TextField, Button, Box, Grid, Checkbox } from "@mui/material";
 import Workout from "../components/Workouts.jsx";
 
 const CreatePage = () => {
@@ -23,11 +34,24 @@ const CreatePage = () => {
     setWorkoutCount((prevCount) => prevCount + 1);
   };
 
-  const handleSubmit = () => {
+  const postCollectionRef = collection(db, "WorkoutPlan");
+
+  const handleSubmit = async () => {
     if (Object.values(checkboxState).some((value) => value)) {
-      console.log("Name:", name);
-      console.log("Description:", description);
-      console.log("Workout Data:", workoutData);
+      // workout plan json
+      const workoutPlan = {
+        name: name,
+        description: description,
+        workoutData: [...workoutData],
+        days: checkboxState,
+      };
+
+      await addDoc(postCollectionRef, workoutPlan);
+
+      console.log(workoutPlan);
+      // console.log("Name:", name);
+      // console.log("Description:", description);
+      // console.log("Workout Data:", workoutData);
       console.log("Checkbox State:", checkboxState);
     } else {
       invalidSubmit();
@@ -55,134 +79,193 @@ const CreatePage = () => {
 
   return (
     <>
-      <div className={styles.container}>
-        <img src={logo} alt="workout plan" className={styles.image} />
-        <div className={styles.text}>
-          <h1>Create a Workout Plan</h1>
-          <p>Some description or additional content can go here...</p>
-        </div>
-      </div>
-      <div className={styles.TextField}>
-        <Stack spacing={4}>
-          <Stack direction={"row"} spacing={4}>
-            <TextField
-              label="Name"
-              variant="filled"
-              required
-              id="fullWidth"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="Description"
-              variant="filled"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Stack>
-        </Stack>
-      </div>
-      <div style={{ marginBottom: "20px" }}></div>
-      {[...Array(workoutCount)].map((_, index) => (
-        <div key={index}>
-          <Workout
-            onChange={(key, value) => handleInputChange(index, key, value)}
-          />
-        </div>
-      ))}
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}
-      >
-        <Button
-          variant="outlined"
-          sx={{ borderRadius: 2, marginTop: 2, width: "50px", height: "50px" }}
-          onClick={addWorkout}
-        >
-          Add
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{
-            borderRadius: 2,
-            marginTop: 2,
-            height: "50px",
-            marginLeft: "10px",
-          }}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </div>
-      <div style={{ marginTop: 20 }}>
+      <Box sx={{ borderRadius: 2, paddingLeft: 55, paddingRight: 15 }}>
         <Box
           sx={{
-            bgcolor: "grey",
-            p: 2,
-            border: "2px solid blue",
-            borderRadius: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            height: "100%",
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Monday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Monday}
-                onChange={() => handleCheckboxChange("Monday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Tuesday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Tuesday}
-                onChange={() => handleCheckboxChange("Tuesday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Wednesday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Wednesday}
-                onChange={() => handleCheckboxChange("Wednesday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Thursday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Thursday}
-                onChange={() => handleCheckboxChange("Thursday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Friday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Friday}
-                onChange={() => handleCheckboxChange("Friday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Saturday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Saturday}
-                onChange={() => handleCheckboxChange("Saturday")}
-              ></Checkbox>
-            </Grid>
-            <Grid item md={1.7}>
-              <p style={{ color: "white" }}>Sunday</p>
-              <Checkbox
-                sx={{ color: "whitesmoke" }}
-                checked={checkboxState.Sunday}
-                onChange={() => handleCheckboxChange("Sunday")}
-              ></Checkbox>
-            </Grid>
-          </Grid>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img src={logo} alt="workout plan" className={styles.image} />
+            <div>
+              <h1>Create a Workout Plan</h1>
+              <p>Some description or additional content can go here...</p>
+            </div>
+          </div>
         </Box>
-      </div>
+        <div className={styles.TextField}>
+          <Stack spacing={4}>
+            <Stack direction={"row"} spacing={4}>
+              <TextField
+                label="Name"
+                variant="filled"
+                required
+                id="fullWidth"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                fullWidth
+                label="Description"
+                variant="filled"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </Stack>
+          </Stack>
+        </div>
+        <div style={{ marginBottom: "20px" }}></div>
+        {[...Array(workoutCount)].map((_, index) => (
+          <div key={index}>
+            <Workout
+              onChange={(key, value) => handleInputChange(index, key, value)}
+            />
+          </div>
+        ))}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "30px",
+          }}
+        >
+          <Button
+            variant="outlined"
+            sx={{
+              borderRadius: 2,
+              marginTop: 2,
+              width: "50px",
+              height: "50px",
+            }}
+            onClick={addWorkout}
+          >
+            Add
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              borderRadius: 2,
+              marginTop: 2,
+              height: "50px",
+              marginLeft: "10px",
+            }}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </div>
+        <div style={{ marginTop: 20 }}>
+          <Box
+            sx={{
+              bgcolor: "grey",
+              p: 2,
+              border: "2px solid blue",
+              borderRadius: 2,
+              maxHeight: "55px",
+              color: "white",
+              fontFamily: "Helvetica, Arial, sans-serif",
+            }}
+          >
+            <Grid container spacing={2}>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Monday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Monday}
+                      onChange={() => handleCheckboxChange("Monday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Tuesday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Tuesday}
+                      onChange={() => handleCheckboxChange("Tuesday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Wednesday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Wednesday}
+                      onChange={() => handleCheckboxChange("Wednesday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Thursday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Thursday}
+                      onChange={() => handleCheckboxChange("Thursday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Friday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Friday}
+                      onChange={() => handleCheckboxChange("Friday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Friday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Saturday}
+                      onChange={() => handleCheckboxChange("Saturday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+              <Grid item md={1.7}>
+                <FormControlLabel
+                  label="Sunday"
+                  control={
+                    <Checkbox
+                      sx={{ color: "whitesmoke" }}
+                      checked={checkboxState.Sunday}
+                      onChange={() => handleCheckboxChange("Sunday")}
+                    />
+                  }
+                  labelPlacement="top"
+                />
+              </Grid>
+            </Grid>
+          </Box>
+        </div>
+      </Box>
     </>
   );
 };
