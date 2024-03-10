@@ -1,3 +1,4 @@
 import Logo from "./logo.png";
+import Streak from "./streak-icon.png";
 
-export default Logo;
+export { Logo, Streak };
