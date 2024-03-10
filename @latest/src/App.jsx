@@ -7,6 +7,7 @@ import CreatePage from "./pages/CreatePage";
 import HomePage from "./pages/HomePage";
 import CommunityPage from "./pages/CommunityPage";
 import Login from "./pages/Login";
+import YouPage from "./pages/YouPage";
 
 import HomeIcon from "@mui/icons-material/Home";
 import CreateIcon from "@mui/icons-material/Create";
@@ -16,7 +17,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import Divider from "@mui/material/Divider";
 
 import "./App.css";
-import YouPage from "./pages/youPage";
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));

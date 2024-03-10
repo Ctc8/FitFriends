@@ -14,15 +14,27 @@ const YouPage = ({ isAuth }) => {
 
   let navigate = useNavigate();
 
-  onAuthStateChanged(auth, (user) => {
-    setCurrentUser(user);
-  });
-
   useEffect(() => {
     if (!isAuth) {
       console.log(isAuth);
       navigate("/login");
     }
+
+    onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
+
+      const q = query(
+        collection(db, "WorkoutPlan"),
+        where("userID", "==", user.uid)
+      );
+
+      const data = await getDocs(q);
+      const fullData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(fullData);
+
+      setWorkoutData(fullData);
+      console.log(fullData[0].workoutData[0]);
+    });
   }, []);
 
   // Sample data for demonstration, replace this with your actual data source
@@ -77,9 +89,11 @@ const YouPage = ({ isAuth }) => {
               marginLeft: "-15px",
             }}
           >
-            {/* {workoutData.map((workout, index) => (
-              <MadeWorkout key={index} name={workout.Name} muscle="muscle" />
-            ))} */}
+            {workoutData.map((workout) =>
+              workout.workoutData.map((exercise) => (
+                <MadeWorkout muscle={exercise.bodyPart} name={workout.user} />
+              ))
+            )}
           </Box>
           <Box>
             <img src={logo} alt="" />
